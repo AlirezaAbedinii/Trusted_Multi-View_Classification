@@ -13,34 +13,41 @@ class MultiViewData(Dataset):
         """
         Initialize the dataset.
 
-        :param root: Path and name of the data file.
-        :param train: Whether to load the training set (True) or test set (False).
+        param root: Path and name of the data file.
+        param train: Whether to load the training set (True) or test set (False).
         """
         super(MultiViewData, self).__init__()
         self.root = root
         self.train = train
 
         data_path = f'{self.root}.mat'
+
+        # loads the dataset from a MATLAB file
         dataset = sio.loadmat(data_path)
+
+        # length of the dataset returned from the MATLAB file, there are 5 additional entries not related to data views
         view_count = int((len(dataset) - 5) / 2)
 
+        # hold data from each view
         self.X = {}
         data_key_suffix = 'train' if train else 'test'
         y_key = f'gt_{data_key_suffix}'
 
+        # loops through each view, normalizes the data using the normalize method, and adds it to self.X.
         for v_num in range(view_count):
             x_key = f'x{v_num + 1}_{data_key_suffix}'
             self.X[v_num] = self.normalize(dataset[x_key])
 
+        # Labels are loaded from the dataset. If the minimum value is 1 (MATLAB indexing),
+        # it is subtracted by 1 to match Python's 0-indexing. Then, y is flattened using np.ravel.
         y = dataset[y_key] - 1 if np.min(dataset[y_key]) == 1 else dataset[y_key]
         self.y = np.ravel(y)
 
     def __getitem__(self, index):
         """
-        Get a data point and its label by index.
-
-        :param index: Index of the data point.
-        :return: A tuple of data (from all views) and label.
+        Retrieves a single data point and its label, given an index.
+        creates a dictionary from all views, converted to np.float32 type,
+        and retrieves the corresponding label from self.y
         """
         data = {v_num: self.X[v_num][index].astype(np.float32) for v_num in self.X}
         target = self.y[index]
@@ -49,8 +56,6 @@ class MultiViewData(Dataset):
     def __len__(self):
         """
         Get the total number of data points.
-
-        :return: The size of the dataset.
         """
         return len(next(iter(self.X.values())))
 
@@ -58,10 +63,6 @@ class MultiViewData(Dataset):
     def normalize(x, min_value=0):
         """
         Normalize the data.
-
-        :param x: The data to be normalized.
-        :param min_value: Indicates the feature range
-        :return: Normalized data.
         """
         if min_value == 0:
             feature_range = (0, 1)
