@@ -78,7 +78,7 @@ class Trainer():
         
             # refresh the optimizer
             self.optimizer.zero_grad()
-            (self.optimizer.step()).evidences, evidence_a, loss = self.model(data, target, epoch)
+            evidences, evidence_a, loss = self.model(data, target, epoch)
         
             # The gradients are computed via backpropagation 
             loss.backward()
@@ -86,6 +86,8 @@ class Trainer():
             # Optimizer updates the model parameters 
             self.optimizer.step()
             loss_meter.update(loss.item())
+
+            
             
     def test(self, epoch):
         """
