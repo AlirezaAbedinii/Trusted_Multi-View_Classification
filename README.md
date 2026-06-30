@@ -1,5 +1,13 @@
 # Trusted Multi-View Classification (TMC)
 
+[![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Paper](https://img.shields.io/badge/Paper-ICLR%202021-b31b1b)](https://arxiv.org/abs/2102.02051)
+
+> **Topics:** `pytorch` · `deep-learning` · `multi-view-learning` · `uncertainty-estimation` · `evidential-deep-learning` · `dempster-shafer` · `dirichlet-distribution` · `classification` · `machine-learning`
+
 A PyTorch implementation of **Trusted Multi-View Classification** — an evidential
 deep-learning approach that classifies samples described by several different
 "views" (feature sets) while also producing a calibrated, **per-sample
@@ -128,5 +136,6 @@ On completion the script prints the test accuracy and loss.
 
 ## License
 
-This project reimplements the method from Han et al. (ICLR 2021) for research and
-educational purposes. See the original paper for the method details.
+Released under the [MIT License](LICENSE). This project reimplements the method
+from Han et al. (ICLR 2021) for research and educational purposes; please cite the
+original paper when using this work.
