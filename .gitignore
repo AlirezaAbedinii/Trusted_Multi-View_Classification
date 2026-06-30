@@ -1,0 +1,27 @@
+# IDE
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Notebook / OS
+.ipynb_checkpoints/
+.DS_Store
+
+# Model artifacts / logs
+*.pth
+*.pt
+*.log
+runs/
